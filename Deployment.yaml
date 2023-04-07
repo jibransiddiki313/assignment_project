@@ -1,0 +1,40 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: postgressql-deployment
+  namespace: postgressql
+  labels:
+    app: postgressql
+
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: postgressql
+  template:
+    metadata:
+      labels:
+        app: postgressql
+    spec:
+      containers:
+      - name: postgresql-container
+        image: postgres:latest
+        ports:
+        - containerPort: 5432
+      # - name: mysql-db
+      #   env:
+      #   - name: MYSQL_ROOT_PASSWORD
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: mysql-secrets
+      #         key: mysql-root-password
+      #   - name: MYSQL_USER
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: mysql-secrets
+      #         key: mysql-user
+      #   - name: MYSQL_PASSWORD
+      #     valueFrom:
+      #       secretKeyRef:
+      #         name: mysql-secrets
+      #         key: mysql-password
